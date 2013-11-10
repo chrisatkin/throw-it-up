@@ -17,11 +17,11 @@ app.get '/', (req, res) ->
 
 app.get '/stream/:hash', (req, res) ->
   res.writeHead(200, ->
-      'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked'
+      'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked'
   )
   twit.stream('statuses/filter', {track: req.params.hash}, (stream) ->
     stream.on('data', (data) ->
-      if data.entities? and data.entities.media? #and data.entities.media.photo?
+      if data.entities? and data.entities.media? and data.entities.media[0].media_url?
         url = data.entities.media[0].media_url
         text = data.text
         id = data.id
