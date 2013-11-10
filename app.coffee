@@ -15,6 +15,10 @@ app.use express.bodyParser()
 app.get '/', (req, res) ->
   res.sendfile(__dirname + '/public/index.html')
 
+app.get '/present', (req, res) ->
+  res.sendfile(__dirname + '/public/presenter.html')
+
+
 app.get '/stream/:hash', (req, res) ->
   res.writeHead(200, ->
       'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked'
