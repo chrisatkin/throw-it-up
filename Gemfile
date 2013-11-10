@@ -11,4 +11,4 @@ gem "haml"
 gem "capistrano", '~> 3.0'
 gem 'capistrano-bundler'
 gem 'capistrano-rbenv', github: "capistrano/rbenv"
-
+gem 'twitter', '5.0.0.rc.1'
