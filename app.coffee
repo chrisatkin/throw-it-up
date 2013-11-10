@@ -19,6 +19,7 @@ app.get '/stream/:hash', (req, res) ->
   res.writeHead(200, ->
       'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked'
   )
+  res.end()
   twit.stream('statuses/filter', {track: req.params.hash}, (stream) ->
     stream.on('data', (data) ->
       if data.entities? and data.entities.media? and data.entities.media[0].media_url?
@@ -27,8 +28,13 @@ app.get '/stream/:hash', (req, res) ->
         id = data.id
         swab = util.inspect({text: text, image_url: url, id: id})
         console.log(swab)
-        res.write(swab)
+        fb = new Firebase "https://throw-it-up.firebaseIO.com/wait_queue/#{req.params.hash}"
+        fb.push({text: text, image_url: url, id: id})
     )
   )
+
+app.get '/:folder/:file', (req, res) ->
+  res.sendfile(__dirname + "/public/#{req.params.folder}/#{req.params.file}")
+
 
 app.listen 3000
