@@ -1,22 +1,20 @@
 moderator = {
 
-    dataRef: new Firebase('https://throw-it-up.firebaseIO.com/wait_queue'),
+    dataRef: new Firebase('https://throw-it-up.firebaseIO.com/wait_queue/feelbetterjustin'),
     deployRef: new Firebase('https://throw-it-up.firebaseIO.com/deploy_queue'),
 
     init: function() {
         moderator.dataRef.on('child_added', function(snapshot) {
             var node = snapshot.val();
-            if(typeof node.media != "undefined") {
-                $("#moderator_stream").append(
-                    "<div id='" + node.id + "' class='stream_img'></div>");
-                $("#" + node.id).css("background-image", "url('" + node.media.media_url + "')");
-                $("#" + node.id).append("<input id='yes_" + node.id + "' class='yes_button button' type='button' value='Yes' />")
-                $("#" + node.id).append("<input id='no_" + node.id + "' class='no_button button' type='button' value='No' />")
-                console.log("#" + node.id);
-                console.log(node.media.media_url);
-                moderator.attachHandlers()
-                moderator.dataRef.remove();
-            }
+
+            $("#moderator_stream").append(
+                "<div id='" + node.id + "' class='stream_img'></div>");
+            $("#" + node.id).css("background-image", "url('" + node.image_url + "')");
+            $("#" + node.id).append("<input id='yes_" + node.id + "' class='yes_button button' type='button' value='Yes' />")
+            $("#" + node.id).append("<input id='no_" + node.id + "' class='no_button button' type='button' value='No' />")
+
+            moderator.attachHandlers()
+            moderator.dataRef.remove();
         });
     },
 
@@ -25,13 +23,12 @@ moderator = {
         $(".yes_button").click(function() {
             var id = $(this).attr("id").substr(4);
 
-            var tweet = {
-                tweet: {
+            tweet = {}
+            tweet[id] = {
                     "id" : id,
                     "media" : {
                         "media_url" : $("#" + id).css("background-image").replace('url(','').replace(')','')
                     }
-                 }
             }
 
             moderator.deployRef.set(tweet);
