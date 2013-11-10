@@ -22,3 +22,7 @@ end
 get '/' do
   haml :index
 end
+
+get '/view' do
+  haml :view
+end

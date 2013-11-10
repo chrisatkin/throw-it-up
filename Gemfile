@@ -5,6 +5,7 @@ source "https://rubygems.org"
 
 gem "sinatra"
 gem "compass"
+gem 'bootstrap-sass', '~> 3.0.2.0'
 gem "coffee-script"
 gem "haml"
 gem "capistrano", '~> 3.0'
