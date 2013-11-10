@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Throw It Up!</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -11,6 +11,12 @@
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="js/bootstrap.min.js"></script>
+        <script>
+        document.getElementById('hashsubmit').addEventListener('submit', function(event) {
+          event.preventDefault();
+          location.hash = document.getElementById('hashcontrol').value;
+        });
+        </script>
     </head>
     <body>
       <div class="container">
@@ -18,13 +24,12 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="col-md-4">
         <div class="col-md-6">
           <h1>Throw It Up!</h1>
           <h3>Enter the #hashtag you want to moderate for public display, and we'll do the rest:</h3>
-          <form action="#" class="form-inline" role="form">
+          <form action="#" class="form-inline" id="hashsubmit" role="form">
             <div class="form-group">
-              <input type="text" placeholder="#hashtag" class="form-control">
+              <input type="text" placeholder="#hashtag" class="form-control" id="hashcontrol">
             </div>
             <button type="submit"  class="btn btn-primary">Throw it up</button>
           </form>
