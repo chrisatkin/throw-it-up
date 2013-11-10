@@ -21,8 +21,13 @@ app.get '/stream/:hash', (req, res) ->
   )
   twit.stream('statuses/filter', {track: req.params.hash}, (stream) ->
     stream.on('data', (data) ->
-      console.log(util.inspect(data))
-      res.write(util.inspect(data))
+      if data.entities? and data.entities.media? #and data.entities.media.photo?
+        url = data.entities.media[0].media_url
+        text = data.text
+        id = data.id
+        swab = util.inspect({text: text, image_url: url, id: id})
+        console.log(swab)
+        res.write(swab)
     )
   )
 
